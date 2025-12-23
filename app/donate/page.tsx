@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { FaHeart, FaDollarSign, FaCheckCircle, FaInfoCircle, FaMoneyBillWave, FaMobileAlt, FaFileCheck } from 'react-icons/fa'
+import { FaHeart, FaDollarSign, FaCheckCircle, FaInfoCircle, FaMoneyBillWave, FaMobileAlt, FaFileInvoice } from 'react-icons/fa'
 
 export default function Donate() {
   const [formData, setFormData] = useState({
@@ -404,7 +404,7 @@ export default function Donate() {
                           onChange={handleChange}
                           className="text-primary-600"
                         />
-                        <FaFileCheck className="text-xl text-gray-700" />
+                        <FaFileInvoice className="text-xl text-gray-700" />
                         <span className="font-medium">Check</span>
                       </label>
                     </div>
