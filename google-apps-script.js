@@ -119,7 +119,11 @@ function doPost(e) {
     // Make photo URL clickable if it exists
     if (photoDriveUrl) {
       const photoUrlCell = sheet.getRange(lastRow, 21); // Column 21 is Photo Drive URL
-      photoUrlCell.setFormula(`=HYPERLINK("${photoDriveUrl}", "View Photo")`);
+      // Escape quotes in URL for formula
+      const escapedUrl = photoDriveUrl.replace(/"/g, '""');
+      photoUrlCell.setFormula(`=HYPERLINK("${escapedUrl}", "View Photo")`);
+      photoUrlCell.setFontColor('#1155cc');
+      photoUrlCell.setUnderline(true);
     }
     
     // Send email notification
@@ -184,39 +188,29 @@ function savePhotoToDrive(base64Data, fileName, mimeType, firstName, lastName) {
     // Get or create the Drive folder
     const folder = getOrCreateDriveFolder();
     
-    // Convert base64 to blob
-    const byteCharacters = Utilities.base64Decode(base64Data);
-    const byteArrays = [];
-    
-    for (let offset = 0; offset < byteCharacters.length; offset += 1024) {
-      const slice = byteCharacters.slice(offset, offset + 1024);
-      const byteNumbers = new Array(slice.length);
-      for (let i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice[i];
-      }
-      const byteArray = Utilities.newBlob(byteNumbers).getBytes();
-      byteArrays.push(byteArray);
-    }
-    
-    const blob = Utilities.newBlob(byteArrays, mimeType || 'image/jpeg', fileName);
+    // Convert base64 to blob - simplified approach
+    const decodedBytes = Utilities.base64Decode(base64Data);
+    const blob = Utilities.newBlob(decodedBytes, mimeType || 'image/jpeg', fileName);
     
     // Create a descriptive file name
     const timestamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd_HHmmss');
-    const sanitizedName = `${firstName}_${lastName}`.replace(/[^a-zA-Z0-9_-]/g, '_');
-    const finalFileName = `${sanitizedName}_${timestamp}_${fileName}`;
+    const sanitizedName = `${firstName || 'Unknown'}_${lastName || 'Unknown'}`.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const sanitizedFileName = (fileName || 'photo.jpg').replace(/[^a-zA-Z0-9._-]/g, '_');
+    const finalFileName = `${sanitizedName}_${timestamp}_${sanitizedFileName}`;
     
     // Create file in Drive folder
     const file = folder.createFile(blob);
     file.setName(finalFileName);
     
-    // Set file sharing to "Anyone with the link can view" (optional)
-    // file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    // Set file sharing to "Anyone with the link can view" for easier access
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
     
     // Return the file URL
     return file.getUrl();
     
   } catch (error) {
     console.error('Error saving photo to Drive:', error);
+    console.error('Error details:', error.toString());
     throw error;
   }
 }
