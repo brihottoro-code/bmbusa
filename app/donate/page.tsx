@@ -27,6 +27,11 @@ export default function Donate() {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+
+  // Google Apps Script Web App URL for Donations - Replace with your deployed script URL
+  // Get this URL after deploying the Google Apps Script (see google-apps-script-donate.js for instructions)
+  const GOOGLE_SCRIPT_URL_DONATE = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL_DONATE || ''
 
   const presetAmounts = [25, 50, 100, 250, 500, 1000]
 
@@ -69,6 +74,19 @@ export default function Donate() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    // Validate amount
+    const donationAmount = formData.customAmount || formData.amount
+    if (!donationAmount || parseFloat(donationAmount) <= 0) {
+      alert('Please enter a valid donation amount.')
+      return
+    }
+    
+    // Validate required fields
+    if (!formData.firstName || !formData.lastName || !formData.email) {
+      alert('Please fill in all required fields (First Name, Last Name, Email).')
+      return
+    }
+    
     // Validate Zelle reference number if Zelle is selected
     if (formData.paymentMethod === 'zelle' && !formData.zelleReference?.trim()) {
       alert('Please enter your Zelle Reference Number to proceed.')
@@ -76,14 +94,80 @@ export default function Donate() {
     }
     
     setIsSubmitting(true)
+    setSubmitError(null)
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Prepare submission data
+      const submissionData = {
+        amount: formData.amount,
+        customAmount: formData.customAmount,
+        paymentMethod: formData.paymentMethod,
+        zelleReference: formData.zelleReference,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode,
+        country: formData.country,
+        purpose: formData.purpose,
+        customPurpose: formData.customPurpose,
+        anonymous: formData.anonymous,
+        recurring: formData.recurring,
+        comments: formData.comments,
+      }
+
+      // Check if Google Script URL is configured
+      if (!GOOGLE_SCRIPT_URL_DONATE) {
+        throw new Error('Google Apps Script URL is not configured. Please set NEXT_PUBLIC_GOOGLE_SCRIPT_URL_DONATE environment variable. See GOOGLE_SHEETS_SETUP.md for setup instructions.')
+      }
+
+      // Submit to Google Apps Script
+      // Using no-cors mode because Google Apps Script requires it for public access
+      await fetch(GOOGLE_SCRIPT_URL_DONATE, {
+        method: 'POST',
+        mode: 'no-cors', // Required for Google Apps Script public access
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData),
+      })
+
+      // Small delay to ensure submission is processed
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
       setIsSubmitting(false)
       setIsSubmitted(true)
-      // In a real application, you would send this data to your payment processor
-      console.log('Donation data:', formData)
-    }, 2000)
+      
+      // Reset form
+      setFormData({
+        amount: '',
+        customAmount: '',
+        paymentMethod: 'cash',
+        zelleReference: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        address: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        country: 'USA',
+        purpose: 'general',
+        customPurpose: '',
+        anonymous: false,
+        recurring: false,
+        comments: '',
+      })
+
+    } catch (error) {
+      console.error('Error submitting donation:', error)
+      setIsSubmitting(false)
+      setSubmitError(error instanceof Error ? error.message : 'An error occurred while submitting your donation. Please try again.')
+    }
   }
 
   const selectedAmount = formData.customAmount || formData.amount
