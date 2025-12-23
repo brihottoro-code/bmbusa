@@ -23,6 +23,7 @@
 const SPREADSHEET_ID = '1R2xcZthgctfdWj6jwnOzZ9q87n6GbluNLeMCDgMexfQ';
 const SHEET_NAME = 'members';
 const NOTIFICATION_EMAIL = 'brihottoro@gmail.com';
+const DRIVE_FOLDER_NAME = 'Membership Photos'; // Google Drive folder name for storing photos
 
 /**
  * Handle POST request from the membership form
@@ -61,12 +62,24 @@ function doPost(e) {
         'Payment Type',
         'Zelle Reference Number',
         'Photo Uploaded',
+        'Photo Drive URL',
         'Agreed to Terms'
       ];
       sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
       sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
       sheet.getRange(1, 1, 1, headers.length).setBackground('#4285f4');
       sheet.getRange(1, 1, 1, headers.length).setFontColor('white');
+    }
+    
+    // Handle photo upload to Google Drive
+    let photoDriveUrl = '';
+    if (data.photoBase64 && data.photoFileName) {
+      try {
+        photoDriveUrl = savePhotoToDrive(data.photoBase64, data.photoFileName, data.photoMimeType, data.firstName, data.lastName);
+      } catch (error) {
+        console.error('Error saving photo to Drive:', error);
+        // Continue with submission even if photo save fails
+      }
     }
     
     // Prepare the row data
@@ -91,7 +104,8 @@ function doPost(e) {
       data.paymentMethod || '',
       data.paymentType || '',
       data.zelleReference || '',
-      data.photoUpload ? 'Yes' : 'No',
+      data.photoBase64 ? 'Yes' : 'No',
+      photoDriveUrl || '',
       data.agreeToTerms ? 'Yes' : 'No'
     ];
     
@@ -102,8 +116,14 @@ function doPost(e) {
     const lastRow = sheet.getLastRow();
     sheet.getRange(lastRow, 1).setNumberFormat('yyyy-mm-dd hh:mm:ss');
     
+    // Make photo URL clickable if it exists
+    if (photoDriveUrl) {
+      const photoUrlCell = sheet.getRange(lastRow, 21); // Column 21 is Photo Drive URL
+      photoUrlCell.setFormula(`=HYPERLINK("${photoDriveUrl}", "View Photo")`);
+    }
+    
     // Send email notification
-    sendEmailNotification(data, timestamp);
+    sendEmailNotification(data, timestamp, photoDriveUrl);
     
     // Return success response
     return ContentService
@@ -137,9 +157,74 @@ function doGet(e) {
 }
 
 /**
+ * Get or create Google Drive folder for membership photos
+ */
+function getOrCreateDriveFolder() {
+  try {
+    // Try to find existing folder
+    const folders = DriveApp.getFoldersByName(DRIVE_FOLDER_NAME);
+    if (folders.hasNext()) {
+      return folders.next();
+    }
+    
+    // Create new folder if it doesn't exist
+    const folder = DriveApp.createFolder(DRIVE_FOLDER_NAME);
+    return folder;
+  } catch (error) {
+    console.error('Error getting/creating Drive folder:', error);
+    throw error;
+  }
+}
+
+/**
+ * Save photo to Google Drive
+ */
+function savePhotoToDrive(base64Data, fileName, mimeType, firstName, lastName) {
+  try {
+    // Get or create the Drive folder
+    const folder = getOrCreateDriveFolder();
+    
+    // Convert base64 to blob
+    const byteCharacters = Utilities.base64Decode(base64Data);
+    const byteArrays = [];
+    
+    for (let offset = 0; offset < byteCharacters.length; offset += 1024) {
+      const slice = byteCharacters.slice(offset, offset + 1024);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice[i];
+      }
+      const byteArray = Utilities.newBlob(byteNumbers).getBytes();
+      byteArrays.push(byteArray);
+    }
+    
+    const blob = Utilities.newBlob(byteArrays, mimeType || 'image/jpeg', fileName);
+    
+    // Create a descriptive file name
+    const timestamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd_HHmmss');
+    const sanitizedName = `${firstName}_${lastName}`.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const finalFileName = `${sanitizedName}_${timestamp}_${fileName}`;
+    
+    // Create file in Drive folder
+    const file = folder.createFile(blob);
+    file.setName(finalFileName);
+    
+    // Set file sharing to "Anyone with the link can view" (optional)
+    // file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    
+    // Return the file URL
+    return file.getUrl();
+    
+  } catch (error) {
+    console.error('Error saving photo to Drive:', error);
+    throw error;
+  }
+}
+
+/**
  * Send email notification
  */
-function sendEmailNotification(data, timestamp) {
+function sendEmailNotification(data, timestamp, photoDriveUrl) {
   try {
     const subject = `New Membership Application: ${data.firstName} ${data.lastName}`;
     
@@ -184,7 +269,8 @@ function sendEmailNotification(data, timestamp) {
         ${data.zelleReference ? `<li><strong>Zelle Reference:</strong> ${data.zelleReference}</li>` : ''}
       </ul>
       
-      <p><strong>Photo Uploaded:</strong> ${data.photoUpload ? 'Yes' : 'No'}</p>
+      <p><strong>Photo Uploaded:</strong> ${data.photoBase64 ? 'Yes' : 'No'}</p>
+      ${photoDriveUrl ? `<p><strong>Photo Drive URL:</strong> <a href="${photoDriveUrl}">View Photo</a></p>` : ''}
       <p><strong>Agreed to Terms:</strong> ${data.agreeToTerms ? 'Yes' : 'No'}</p>
       
       <hr>
@@ -223,7 +309,8 @@ Payment Information:
 - Payment Type: ${data.paymentType || 'N/A'}
 ${data.zelleReference ? `- Zelle Reference: ${data.zelleReference}` : ''}
 
-Photo Uploaded: ${data.photoUpload ? 'Yes' : 'No'}
+Photo Uploaded: ${data.photoBase64 ? 'Yes' : 'No'}
+${photoDriveUrl ? `Photo Drive URL: ${photoDriveUrl}` : ''}
 Agreed to Terms: ${data.agreeToTerms ? 'Yes' : 'No'}
 
 ---

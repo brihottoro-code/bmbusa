@@ -26,6 +26,7 @@ This guide will help you set up the Google Sheets integration for the Membership
    - `SPREADSHEET_ID`: Your spreadsheet ID (already set)
    - `SHEET_NAME`: Name of the worksheet (default: 'members')
    - `NOTIFICATION_EMAIL`: Email for notifications (already set to brihottoro@gmail.com)
+   - `DRIVE_FOLDER_NAME`: Name of Google Drive folder for photos (default: 'Membership Photos')
 
 ### 3. Save the Script
 
@@ -54,7 +55,10 @@ This guide will help you set up the Google Sheets integration for the Membership
 5. Click **Advanced** > **Go to [Project Name] (unsafe)**
 6. Click **Allow** to grant permissions:
    - Access to Google Sheets (to write data)
+   - Access to Google Drive (to save uploaded photos)
    - Access to Gmail (to send email notifications)
+
+**Note:** The script will automatically create a folder named "Membership Photos" in your Google Drive if it doesn't exist. All uploaded photos will be saved to this folder.
 
 ### 6. Configure the Website
 
@@ -83,6 +87,13 @@ This guide will help you set up the Google Sheets integration for the Membership
 3. Check your Google Sheet - a new row should appear in the "members" worksheet
 4. Check your email (brihottoro@gmail.com) - you should receive a notification
 
+## Features
+
+- ✅ **Form Data Storage**: All membership applications are saved to Google Sheets
+- ✅ **Photo Upload**: Photos are automatically saved to a Google Drive folder named "Membership Photos"
+- ✅ **Email Notifications**: Receive email notifications with form details and photo links
+- ✅ **Automatic Organization**: Photos are named with member name and timestamp for easy identification
+
 ## Troubleshooting
 
 ### Form submission fails
@@ -104,6 +115,14 @@ This guide will help you set up the Google Sheets integration for the Membership
 - **Check email address**: Ensure NOTIFICATION_EMAIL is set correctly
 - **Check script logs**: Go to Apps Script > Executions to see if there were errors
 - **Check Gmail permissions**: Ensure the script has permission to send emails
+
+### Photos not saving to Google Drive
+
+- **Check Drive permissions**: Ensure the script has permission to access Google Drive
+- **Check folder creation**: The script will create "Membership Photos" folder automatically
+- **Check script logs**: Go to Apps Script > Executions to see if there were errors saving photos
+- **Check file size**: Very large photos may fail to upload (recommended: under 10MB)
+- **Check photo format**: Ensure the photo is a valid image format (JPG, PNG, etc.)
 
 ### CORS Errors
 

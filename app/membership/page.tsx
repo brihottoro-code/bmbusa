@@ -101,7 +101,14 @@ export default function Membership() {
     try {
       // Convert photo to base64 if exists
       let photoBase64 = null
+      let photoFileName = null
+      let photoMimeType = null
+      
       if (formData.photoUpload) {
+        const file = formData.photoUpload
+        photoFileName = file.name
+        photoMimeType = file.type || 'image/jpeg'
+        
         photoBase64 = await new Promise<string>((resolve, reject) => {
           const reader = new FileReader()
           reader.onload = () => {
@@ -111,7 +118,7 @@ export default function Membership() {
             resolve(base64)
           }
           reader.onerror = reject
-          reader.readAsDataURL(formData.photoUpload!)
+          reader.readAsDataURL(file)
         })
       }
 
@@ -135,7 +142,9 @@ export default function Membership() {
         paymentMethod: formData.paymentMethod,
         paymentType: formData.paymentType,
         zelleReference: formData.zelleReference,
-        photoUpload: photoBase64 ? 'Yes' : null,
+        photoBase64: photoBase64 || null,
+        photoFileName: photoFileName || null,
+        photoMimeType: photoMimeType || null,
         agreeToTerms: formData.agreeToTerms,
       }
 
