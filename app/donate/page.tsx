@@ -485,7 +485,7 @@ export default function Donate() {
                             <strong>Zelle Payment Information:</strong>
                           </p>
                           <p className="text-sm text-gray-700">
-                            Send payment to: <strong className="text-primary-600">+1 (646) 824-0777</strong>
+                            Send payment to: <strong className="text-primary-600">+1 (917) 957-8941</strong>
                           </p>
                           <p className="text-xs text-gray-600 mt-2">
                             Please include your name and &quot;Donation&quot; in the memo/note when sending payment.

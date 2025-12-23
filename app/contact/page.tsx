@@ -21,9 +21,9 @@ export default function Contact() {
     {
       icon: FaPhone,
       title: 'Phone',
-      content: '+1 (646) 824-0777',
+      content: '+1 (917) 957-8941',
       subContent: 'Call us during business hours',
-      link: 'tel:+16468240777',
+      link: 'tel:+19179578941',
       color: 'from-purple-500 to-purple-600',
     },
     {

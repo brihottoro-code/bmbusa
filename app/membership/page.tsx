@@ -269,7 +269,7 @@ export default function Membership() {
                 </div>
               </div>
               <p className="mt-6 text-gray-700">
-                <strong>Payment Method:</strong> Zelle Payment (Zelle: +1 (646) 824-0777) payable to &quot;Brihottor Mymensinghbashi USA Inc.&quot;
+                <strong>Payment Method:</strong> Zelle Payment (Zelle: +1 (917) 957-8941) payable to &quot;Brihottor Mymensinghbashi USA Inc.&quot;
               </p>
             </div>
 
@@ -348,7 +348,7 @@ export default function Membership() {
                   <div className="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Submit Payment</h3>
-                    <p className="text-gray-700">Pay the membership fee ($10/month or $120/year) via Zelle (Zelle: +1 (646) 824-0777).</p>
+                    <p className="text-gray-700">Pay the membership fee ($10/month or $120/year) via Zelle (Zelle: +1 (917) 957-8941).</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -554,7 +554,7 @@ export default function Membership() {
                             required
                             value={formData.phone}
                             onChange={handleChange}
-                            placeholder="+1 (646) 824-0777"
+                            placeholder="+1 (917) 957-8941"
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
                           />
                         </div>
@@ -779,7 +779,7 @@ export default function Membership() {
                                 <strong>Zelle Payment Information:</strong>
                               </p>
                               <p className="text-sm text-gray-700">
-                                Send payment to: <strong className="text-primary-600">+1 (646) 824-0777</strong>
+                                Send payment to: <strong className="text-primary-600">+1 (917) 957-8941</strong>
                               </p>
                               <p className="text-xs text-gray-600 mt-2">
                                 Please include your name and &quot;Membership Fee&quot; in the memo/note when sending payment.
