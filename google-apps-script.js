@@ -127,13 +127,24 @@ function doPost(e) {
     }
     
     // Send email notification
-    sendEmailNotification(data, timestamp, photoDriveUrl);
+    let emailSent = false
+    let emailError = null
+    try {
+      sendEmailNotification(data, timestamp, photoDriveUrl)
+      emailSent = true
+    } catch (emailErr) {
+      emailError = emailErr.toString()
+      console.error('Email notification failed:', emailErr)
+      // Continue even if email fails
+    }
     
     // Return success response
     return ContentService
       .createTextOutput(JSON.stringify({
         success: true,
-        message: 'Membership application submitted successfully'
+        message: 'Membership application submitted successfully',
+        emailSent: emailSent,
+        emailError: emailError || null
       }))
       .setMimeType(ContentService.MimeType.JSON);
       
@@ -220,6 +231,11 @@ function savePhotoToDrive(base64Data, fileName, mimeType, firstName, lastName) {
  */
 function sendEmailNotification(data, timestamp, photoDriveUrl) {
   try {
+    // Validate email address
+    if (!NOTIFICATION_EMAIL || NOTIFICATION_EMAIL.trim() === '') {
+      throw new Error('Notification email address is not configured')
+    }
+    
     const subject = `New Membership Application: ${data.firstName} ${data.lastName}`;
     
     let htmlBody = `
@@ -311,16 +327,40 @@ Agreed to Terms: ${data.agreeToTerms ? 'Yes' : 'No'}
 This is an automated notification from the Membership Application Form.
     `;
     
-    MailApp.sendEmail({
-      to: NOTIFICATION_EMAIL,
-      subject: subject,
-      htmlBody: htmlBody,
-      body: plainBody
-    });
+    // Send email with error handling
+    try {
+      MailApp.sendEmail({
+        to: NOTIFICATION_EMAIL,
+        subject: subject,
+        htmlBody: htmlBody,
+        body: plainBody
+      });
+      console.log('Email notification sent successfully to:', NOTIFICATION_EMAIL);
+    } catch (emailError) {
+      console.error('Failed to send email:', emailError);
+      console.error('Error details:', emailError.toString());
+      // Try sending a simpler email as fallback
+      try {
+        MailApp.sendEmail({
+          to: NOTIFICATION_EMAIL,
+          subject: `New Membership Application: ${data.firstName} ${data.lastName}`,
+          body: `A new membership application has been received from ${data.firstName} ${data.lastName} (${data.email || 'N/A'}). Please check the Google Sheet for details.`
+        });
+        console.log('Fallback email sent successfully');
+      } catch (fallbackError) {
+        console.error('Fallback email also failed:', fallbackError);
+        throw emailError; // Re-throw original error
+      }
+    }
     
   } catch (error) {
-    // Log error but don't fail the submission
-    console.error('Error sending email:', error);
+    // Log error details
+    console.error('Error in sendEmailNotification function:', error);
+    console.error('Error type:', typeof error);
+    console.error('Error message:', error.message || error.toString());
+    console.error('Error stack:', error.stack || 'No stack trace');
+    // Re-throw to be caught by caller
+    throw error;
   }
 }
 
