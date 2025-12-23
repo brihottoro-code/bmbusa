@@ -56,7 +56,7 @@ export default function Contact() {
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Contact Us</h1>
             <p className="text-xl md:text-2xl text-primary-100 mb-4">
-              We're here to help and answer any questions you may have
+              We&apos;re here to help and answer any questions you may have
             </p>
             <p className="text-lg text-primary-200">
               Whether you have questions about membership, events, or need assistance, our team is ready to assist you.
@@ -72,7 +72,7 @@ export default function Contact() {
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Get in Touch</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Choose your preferred method to reach out to us. We're committed to responding to all inquiries promptly.
+                Choose your preferred method to reach out to us. We&apos;re committed to responding to all inquiries promptly.
               </p>
             </div>
 
@@ -144,7 +144,7 @@ export default function Contact() {
               <div className="bg-primary-50 p-8 rounded-xl">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Membership Inquiries</h3>
                 <p className="text-gray-700 mb-4">
-                  Interested in becoming a member? We'd love to have you join our community. Contact us to learn more about membership benefits and the application process.
+                  Interested in becoming a member? We&apos;d love to have you join our community. Contact us to learn more about membership benefits and the application process.
                 </p>
                 <a
                   href="/membership"

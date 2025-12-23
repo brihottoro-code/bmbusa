@@ -463,7 +463,7 @@ export default function Donate() {
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Your Impact</h3>
                     <p className="text-gray-600 text-sm">
-                      Your donation supports our community's social activities and programs.
+                      Your donation supports our community&apos;s social activities and programs.
                     </p>
                   </div>
 

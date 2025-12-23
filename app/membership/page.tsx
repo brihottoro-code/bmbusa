@@ -153,7 +153,7 @@ export default function Membership() {
                 </div>
               </div>
               <p className="mt-6 text-gray-700">
-                <strong>Payment Methods:</strong> Check, Cash, or Zelle Payment (Zelle: +1 (646) 824-0777) payable to "Brihottor Mymensinghbashi USA Inc."
+                <strong>Payment Methods:</strong> Check, Cash, or Zelle Payment (Zelle: +1 (646) 824-0777) payable to &quot;Brihottor Mymensinghbashi USA Inc.&quot;
               </p>
             </div>
 
@@ -246,7 +246,7 @@ export default function Membership() {
                   <div className="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Submit to Organization</h3>
-                    <p className="text-gray-700">Submit your completed form and payment to the organization's office or designated representative.</p>
+                    <p className="text-gray-700">Submit your completed form and payment to the organization&apos;s office or designated representative.</p>
                   </div>
                 </div>
               </div>
@@ -654,7 +654,7 @@ export default function Membership() {
                                 Send payment to: <strong className="text-primary-600">+1 (646) 824-0777</strong>
                               </p>
                               <p className="text-xs text-gray-600 mt-2">
-                                Please include your name and "Membership Fee" in the memo/note when sending payment.
+                                Please include your name and &quot;Membership Fee&quot; in the memo/note when sending payment.
                               </p>
                             </div>
                             <div className="bg-white p-4 border-2 border-blue-200 rounded-lg shadow-sm">

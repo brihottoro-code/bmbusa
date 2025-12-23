@@ -79,13 +79,13 @@ export default function Constitution() {
                 <ul className="space-y-3 text-gray-700">
                   <li><strong>a.</strong> Members must be permanent residents of Greater Mymensingh (marital connections also accepted).</li>
                   <li><strong>b.</strong> Minimum age to be a member is 18.</li>
-                  <li><strong>c.</strong> Applicants must submit a completed form with a photo and pay the prescribed fee (check/cash/money order in the organization's name is accepted).</li>
+                  <li><strong>c.</strong> Applicants must submit a completed form with a photo and pay the prescribed fee (check/cash/money order in the organization&apos;s name is accepted).</li>
                   <li><strong>d.</strong> Every member must pay $10 monthly dues or a one-time $120 annual payment.</li>
                   <li><strong>e.</strong> All general members are eligible to vote.</li>
                   <li><strong>f.</strong> If elections are held, all members can exercise their voting rights.</li>
                   <li><strong>g.</strong> Every member must attach a photo to their membership form for recordkeeping.</li>
                   <li><strong>h.</strong> Distinguished individuals can become honorary lifetime members by donating at least $1000 and may be recognized for their contribution to the community.</li>
-                  <li><strong>i.</strong> Honorary/lifetime members shall be awarded at the organization's annual picnic and social event each year with a medal of recognition.</li>
+                  <li><strong>i.</strong> Honorary/lifetime members shall be awarded at the organization&apos;s annual picnic and social event each year with a medal of recognition.</li>
                   <li><strong>j.</strong> Members who do not pay dues for over 2 years will have their membership revoked.</li>
                   <li><strong>k.</strong> Any member convicted or found guilty of a crime in the USA will lose their membership.</li>
                   <li><strong>l.</strong> If a member is sentenced to at least 6 months or fined $20,000 or more, their membership will be canceled without explanation.</li>
@@ -103,7 +103,7 @@ export default function Constitution() {
                 <ul className="space-y-3 text-gray-700">
                   <li><strong>a.</strong> The Executive Committee may consist of a maximum of 41 members.</li>
                   <li><strong>b.</strong> Members may be selected through general voting or decisions by the Advisory / Ad-hoc / Judicial Committee.</li>
-                  <li><strong>c.</strong> The Executive Committee's term will be 2 years.</li>
+                  <li><strong>c.</strong> The Executive Committee&apos;s term will be 2 years.</li>
                   <li><strong>d.</strong> Within 90 days before term completion, the responsibility must be handed over to the Ad-hoc or Judicial Committee.</li>
                   <li><strong>e.</strong> Before handing over power, the Executive Committee must appoint an Election Commission.</li>
                 </ul>
@@ -138,8 +138,8 @@ export default function Constitution() {
                   </ul>
                   <ul className="space-y-2">
                     <li>• Literary Secretary</li>
-                    <li>• Women's Affairs Secretary</li>
-                    <li>• Assistant Women's Affairs Secretary</li>
+                    <li>• Women&apos;s Affairs Secretary</li>
+                    <li>• Assistant Women&apos;s Affairs Secretary</li>
                     <li>• Hospitality Secretary</li>
                     <li>• 5 Senior Members</li>
                     <li>• 6 General Members</li>
