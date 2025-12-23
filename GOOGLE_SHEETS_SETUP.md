@@ -111,10 +111,32 @@ This guide will help you set up the Google Sheets integration for the Membership
 
 ### Email not received
 
-- **Check spam folder**: The email might be in spam
-- **Check email address**: Ensure NOTIFICATION_EMAIL is set correctly
-- **Check script logs**: Go to Apps Script > Executions to see if there were errors
-- **Check Gmail permissions**: Ensure the script has permission to send emails
+- **Check spam folder**: The email might be in spam (check both inbox and spam)
+- **Check email address**: Ensure NOTIFICATION_EMAIL is set correctly to `brihottoro@gmail.com`
+- **Check script logs**: 
+  1. Go to Apps Script > Executions
+  2. Click on the latest execution
+  3. Look for any errors related to email sending
+  4. Check the logs for "Email notification sent successfully" or error messages
+- **Check Gmail permissions**: 
+  1. Ensure the script has permission to send emails
+  2. Go to Apps Script > Triggers (or check the execution logs)
+  3. If you see permission errors, re-authorize the script
+- **Test email function directly**:
+  1. In Apps Script editor, create a test function:
+     ```javascript
+     function testEmail() {
+       MailApp.sendEmail({
+         to: 'brihottoro@gmail.com',
+         subject: 'Test Email',
+         body: 'This is a test email from Google Apps Script'
+       });
+     }
+     ```
+  2. Run this function and check if you receive the test email
+  3. If the test email works, the issue might be with the form data
+- **Check email quota**: Google Apps Script has daily email sending limits
+- **Verify email format**: Ensure the email address doesn't have extra spaces or characters
 
 ### Photos not saving to Google Drive
 
