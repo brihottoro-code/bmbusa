@@ -34,3 +34,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# exclude duplicate images from app folder (use public folder only)
+app/photo/image/*.jpg
+
