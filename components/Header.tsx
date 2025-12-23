@@ -4,6 +4,14 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FaBars, FaTimes, FaHome, FaInfoCircle, FaUserPlus, FaBook, FaCalendarAlt, FaEnvelope, FaBuilding, FaChevronDown, FaHeart, FaUsers, FaUserTie, FaAward } from 'react-icons/fa'
+import { IconType } from 'react-icons'
+
+interface NavItem {
+  href: string
+  label: string
+  icon: IconType
+  highlight?: boolean
+}
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -36,13 +44,13 @@ export default function Header() {
     }
   }, [isOrgOpen])
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { href: '/', label: 'Home', icon: FaHome },
     { href: '/about', label: 'About', icon: FaInfoCircle },
     { href: '/events', label: 'Events', icon: FaCalendarAlt },
   ]
 
-  const navItemsAfterOrg = [
+  const navItemsAfterOrg: NavItem[] = [
     { href: '/membership', label: 'Join Us', icon: FaUserPlus, highlight: true },
     { href: '/donate', label: 'Donate', icon: FaHeart, highlight: true },
   ]
