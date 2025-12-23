@@ -1,13 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { FaHeart, FaDollarSign, FaCreditCard, FaPaypal, FaCheckCircle, FaInfoCircle } from 'react-icons/fa'
+import { FaHeart, FaDollarSign, FaCheckCircle, FaInfoCircle, FaMoneyBillWave, FaMobileAlt } from 'react-icons/fa'
 
 export default function Donate() {
   const [formData, setFormData] = useState({
     amount: '',
     customAmount: '',
-    paymentMethod: 'card',
+    paymentMethod: 'cash',
+    zelleReference: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -44,10 +45,17 @@ export default function Donate() {
     const { name, value, type } = e.target
     const checked = (e.target as HTMLInputElement).checked
 
-    setFormData({
+    const updatedData = {
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
-    })
+    }
+
+    // Clear Zelle reference when switching away from Zelle payment
+    if (name === 'paymentMethod' && value !== 'zelle') {
+      updatedData.zelleReference = ''
+    }
+
+    setFormData(updatedData)
   }
 
   const handleAmountClick = (amount: number) => {
@@ -60,6 +68,13 @@ export default function Donate() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Validate Zelle reference number if Zelle is selected
+    if (formData.paymentMethod === 'zelle' && !formData.zelleReference?.trim()) {
+      alert('Please enter your Zelle Reference Number to proceed.')
+      return
+    }
+    
     setIsSubmitting(true)
 
     // Simulate form submission
@@ -102,7 +117,8 @@ export default function Donate() {
                     setFormData({
                       amount: '',
                       customAmount: '',
-                      paymentMethod: 'card',
+                      paymentMethod: 'cash',
+                      zelleReference: '',
                       firstName: '',
                       lastName: '',
                       email: '',
@@ -348,49 +364,72 @@ export default function Donate() {
                   {/* Payment Method */}
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-4">Payment Method</label>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <label className={`flex items-center space-x-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                        formData.paymentMethod === 'card' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-primary-300'
+                        formData.paymentMethod === 'cash' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-primary-300'
                       }`}>
                         <input
                           type="radio"
                           name="paymentMethod"
-                          value="card"
-                          checked={formData.paymentMethod === 'card'}
+                          value="cash"
+                          checked={formData.paymentMethod === 'cash'}
                           onChange={handleChange}
                           className="text-primary-600"
                         />
-                        <FaCreditCard className="text-xl text-gray-700" />
-                        <span className="font-medium">Credit Card</span>
+                        <FaMoneyBillWave className="text-xl text-gray-700" />
+                        <span className="font-medium">Cash</span>
                       </label>
                       <label className={`flex items-center space-x-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                        formData.paymentMethod === 'paypal' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-primary-300'
+                        formData.paymentMethod === 'zelle' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-primary-300'
                       }`}>
                         <input
                           type="radio"
                           name="paymentMethod"
-                          value="paypal"
-                          checked={formData.paymentMethod === 'paypal'}
+                          value="zelle"
+                          checked={formData.paymentMethod === 'zelle'}
                           onChange={handleChange}
                           className="text-primary-600"
                         />
-                        <FaPaypal className="text-xl text-gray-700" />
-                        <span className="font-medium">PayPal</span>
-                      </label>
-                      <label className={`flex items-center space-x-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                        formData.paymentMethod === 'check' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-primary-300'
-                      }`}>
-                        <input
-                          type="radio"
-                          name="paymentMethod"
-                          value="check"
-                          checked={formData.paymentMethod === 'check'}
-                          onChange={handleChange}
-                          className="text-primary-600"
-                        />
-                        <span className="font-medium">Check</span>
+                        <FaMobileAlt className="text-xl text-gray-700" />
+                        <span className="font-medium">Zelle</span>
                       </label>
                     </div>
+                    
+                    {/* Zelle Payment Information */}
+                    {formData.paymentMethod === 'zelle' && (
+                      <div className="mt-4 space-y-4">
+                        <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                          <p className="text-sm text-gray-700 mb-2">
+                            <strong>Zelle Payment Information:</strong>
+                          </p>
+                          <p className="text-sm text-gray-700">
+                            Send payment to: <strong className="text-primary-600">+1 (646) 824-0777</strong>
+                          </p>
+                          <p className="text-xs text-gray-600 mt-2">
+                            Please include your name and &quot;Donation&quot; in the memo/note when sending payment.
+                          </p>
+                        </div>
+                        <div className="bg-white p-4 border-2 border-blue-200 rounded-lg">
+                          <label htmlFor="zelleReference" className="block text-sm font-medium text-gray-700 mb-2">
+                            Zelle Reference Number <span className="text-red-600">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            id="zelleReference"
+                            name="zelleReference"
+                            required
+                            value={formData.zelleReference}
+                            onChange={handleChange}
+                            placeholder="Enter your Zelle transaction reference number"
+                            className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
+                            aria-required="true"
+                          />
+                          <p className="text-xs text-gray-500 mt-1">
+                            Please enter the reference number from your Zelle payment confirmation. This field is required.
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Options */}
