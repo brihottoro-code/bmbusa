@@ -254,6 +254,18 @@ export default function Donate() {
               {/* Form */}
               <div className="lg:col-span-2">
                 <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-8 space-y-8">
+                  {submitError && (
+                    <div className="bg-red-50 border-l-4 border-red-600 p-4 rounded-lg">
+                      <div className="flex items-start">
+                        <FaInfoCircle className="text-red-600 text-xl mr-3 mt-1 flex-shrink-0" />
+                        <div>
+                          <h3 className="font-semibold text-red-900 mb-1">Submission Error</h3>
+                          <p className="text-red-700">{submitError}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
                   {/* Donation Amount */}
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-4">
