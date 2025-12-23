@@ -38,6 +38,7 @@ jobs:
         env:
           CUSTOM_DOMAIN: ${{ secrets.CUSTOM_DOMAIN || 'false' }}
           GITHUB_PAGES: ${{ secrets.CUSTOM_DOMAIN != 'true' && 'true' || 'false' }}
+          NEXT_PUBLIC_GOOGLE_SCRIPT_URL: ${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}
         run: npm run build
 
       - name: Set custom domain flag
