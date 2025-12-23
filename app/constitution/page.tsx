@@ -79,7 +79,7 @@ export default function Constitution() {
                 <ul className="space-y-3 text-gray-700">
                   <li><strong>a.</strong> Members must be permanent residents of Greater Mymensingh (marital connections also accepted).</li>
                   <li><strong>b.</strong> Minimum age to be a member is 18.</li>
-                  <li><strong>c.</strong> Applicants must submit a completed form with a photo and pay the prescribed fee (check/cash/money order in the organization&apos;s name is accepted).</li>
+                  <li><strong>c.</strong> Applicants must submit a completed form with a photo and pay the prescribed fee (Zelle payment in the organization&apos;s name is accepted).</li>
                   <li><strong>d.</strong> Every member must pay $10 monthly dues or a one-time $120 annual payment.</li>
                   <li><strong>e.</strong> All general members are eligible to vote.</li>
                   <li><strong>f.</strong> If elections are held, all members can exercise their voting rights.</li>

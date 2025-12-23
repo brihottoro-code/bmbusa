@@ -23,7 +23,7 @@ export default function Membership() {
     maritalStatus: '',
     spouseName: '',
     paymentMethod: 'monthly',
-    paymentType: 'check',
+    paymentType: 'zelle',
     zelleReference: '',
     photoUpload: null as File | null,
     agreeToTerms: false,
@@ -192,7 +192,7 @@ export default function Membership() {
         maritalStatus: '',
         spouseName: '',
         paymentMethod: 'monthly',
-        paymentType: 'check',
+        paymentType: 'zelle',
         zelleReference: '',
         photoUpload: null,
         agreeToTerms: false,
@@ -260,7 +260,7 @@ export default function Membership() {
                 <div className="bg-white p-6 rounded-lg shadow-md">
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">Monthly Payment</h3>
                   <p className="text-3xl font-bold text-primary-600 mb-2">$10/month</p>
-                  <p className="text-gray-600">Payable monthly via check, cash, or Zelle</p>
+                  <p className="text-gray-600">Payable monthly via Zelle</p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md">
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">Annual Payment</h3>
@@ -269,7 +269,7 @@ export default function Membership() {
                 </div>
               </div>
               <p className="mt-6 text-gray-700">
-                <strong>Payment Methods:</strong> Check, Cash, or Zelle Payment (Zelle: +1 (646) 824-0777) payable to &quot;Brihottor Mymensinghbashi USA Inc.&quot;
+                <strong>Payment Method:</strong> Zelle Payment (Zelle: +1 (646) 824-0777) payable to &quot;Brihottor Mymensinghbashi USA Inc.&quot;
               </p>
             </div>
 
@@ -348,7 +348,7 @@ export default function Membership() {
                   <div className="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Submit Payment</h3>
-                    <p className="text-gray-700">Pay the membership fee ($10/month or $120/year) via check, cash, or Zelle (Zelle: +1 (646) 824-0777).</p>
+                    <p className="text-gray-700">Pay the membership fee ($10/month or $120/year) via Zelle (Zelle: +1 (646) 824-0777).</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -422,7 +422,7 @@ export default function Membership() {
                         maritalStatus: '',
                         spouseName: '',
                         paymentMethod: 'monthly',
-                        paymentType: 'check',
+                        paymentType: 'zelle',
                         zelleReference: '',
                         photoUpload: null,
                         agreeToTerms: false,
@@ -754,25 +754,22 @@ export default function Membership() {
                         </div>
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-3">Payment Method *</label>
-                          <div className="grid grid-cols-3 gap-4">
-                            {['check', 'cash', 'zelle'].map((method) => (
-                              <label
-                                key={method}
-                                className={`flex items-center space-x-2 p-3 border-2 rounded-lg cursor-pointer transition-all ${
-                                  formData.paymentType === method ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-primary-300'
-                                }`}
-                              >
-                                <input
-                                  type="radio"
-                                  name="paymentType"
-                                  value={method}
-                                  checked={formData.paymentType === method}
-                                  onChange={handleChange}
-                                  className="text-primary-600"
-                                />
-                                <span className="text-sm font-medium text-gray-700 capitalize">{method === 'zelle' ? 'Zelle' : method}</span>
-                              </label>
-                            ))}
+                          <div className="grid grid-cols-1 gap-4">
+                            <label
+                              className={`flex items-center space-x-2 p-3 border-2 rounded-lg cursor-pointer transition-all ${
+                                formData.paymentType === 'zelle' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-primary-300'
+                              }`}
+                            >
+                              <input
+                                type="radio"
+                                name="paymentType"
+                                value="zelle"
+                                checked={formData.paymentType === 'zelle'}
+                                onChange={handleChange}
+                                className="text-primary-600"
+                              />
+                              <span className="text-sm font-medium text-gray-700">Zelle</span>
+                            </label>
                           </div>
                           
                           {/* Zelle Payment Information - Always render but conditionally show */}
