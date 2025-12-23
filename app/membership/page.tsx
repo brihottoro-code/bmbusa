@@ -31,6 +31,11 @@ export default function Membership() {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+
+  // Google Apps Script Web App URL - Replace with your deployed script URL
+  // Get this URL after deploying the Google Apps Script (see google-apps-script.js for instructions)
+  const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || ''
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target
@@ -78,15 +83,117 @@ export default function Membership() {
       alert('Please enter your Zelle Reference Number to proceed.')
       return
     }
+
+    // Validate required fields
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+      alert('Please fill in all required fields.')
+      return
+    }
+
+    if (!formData.agreeToTerms) {
+      alert('Please agree to the terms and conditions to proceed.')
+      return
+    }
     
     setIsSubmitting(true)
+    setSubmitError(null)
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Convert photo to base64 if exists
+      let photoBase64 = null
+      if (formData.photoUpload) {
+        photoBase64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader()
+          reader.onload = () => {
+            const result = reader.result as string
+            // Remove data:image/...;base64, prefix
+            const base64 = result.split(',')[1]
+            resolve(base64)
+          }
+          reader.onerror = reject
+          reader.readAsDataURL(formData.photoUpload!)
+        })
+      }
+
+      // Prepare submission data
+      const submissionData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        dateOfBirth: formData.dateOfBirth,
+        age: formData.age,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode,
+        country: formData.country,
+        originDistrict: formData.originDistrict,
+        originUpazila: formData.originUpazila,
+        maritalStatus: formData.maritalStatus,
+        spouseName: formData.spouseName,
+        paymentMethod: formData.paymentMethod,
+        paymentType: formData.paymentType,
+        zelleReference: formData.zelleReference,
+        photoUpload: photoBase64 ? 'Yes' : null,
+        agreeToTerms: formData.agreeToTerms,
+      }
+
+      // Check if Google Script URL is configured
+      if (!GOOGLE_SCRIPT_URL) {
+        throw new Error('Google Apps Script URL is not configured. Please set NEXT_PUBLIC_GOOGLE_SCRIPT_URL environment variable. See GOOGLE_SHEETS_SETUP.md for setup instructions.')
+      }
+
+      // Submit to Google Apps Script
+      // Using no-cors mode because Google Apps Script requires it for public access
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Required for Google Apps Script public access
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData),
+      })
+
+      // Note: With no-cors mode, we can't read the response status
+      // But if the fetch completes without throwing, we assume success
+      // The actual submission happens server-side in Google Apps Script
+      
+      // Small delay to ensure submission is processed
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
       setIsSubmitting(false)
       setIsSubmitted(true)
-      console.log('Membership application data:', formData)
-    }, 2000)
+      
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        age: '',
+        email: '',
+        phone: '',
+        address: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        country: 'USA',
+        originDistrict: '',
+        originUpazila: '',
+        maritalStatus: '',
+        spouseName: '',
+        paymentMethod: 'monthly',
+        paymentType: 'check',
+        zelleReference: '',
+        photoUpload: null,
+        agreeToTerms: false,
+      })
+
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      setIsSubmitting(false)
+      setSubmitError(error instanceof Error ? error.message : 'An error occurred while submitting your application. Please try again.')
+    }
   }
   return (
     <div className="pt-20 min-h-screen">
@@ -327,12 +434,27 @@ export default function Membership() {
                       <span>Membership Application Form</span>
                     </h2>
                     <button
-                      onClick={() => setShowForm(false)}
+                      onClick={() => {
+                        setShowForm(false)
+                        setSubmitError(null)
+                      }}
                       className="text-gray-500 hover:text-gray-700 text-xl font-bold"
                     >
                       ×
                     </button>
                   </div>
+
+                  {submitError && (
+                    <div className="mb-6 bg-red-50 border-l-4 border-red-600 p-4 rounded-lg">
+                      <div className="flex items-start">
+                        <FaTimesCircle className="text-red-600 text-xl mr-3 mt-1 flex-shrink-0" />
+                        <div>
+                          <h3 className="font-semibold text-red-900 mb-1">Submission Error</h3>
+                          <p className="text-red-700">{submitError}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Personal Information */}
