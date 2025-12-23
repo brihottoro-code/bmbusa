@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { FaHeart, FaDollarSign, FaCheckCircle, FaInfoCircle, FaMoneyBillWave, FaMobileAlt } from 'react-icons/fa'
+import { FaHeart, FaDollarSign, FaCheckCircle, FaInfoCircle, FaMoneyBillWave, FaMobileAlt, FaFileCheck } from 'react-icons/fa'
 
 export default function Donate() {
   const [formData, setFormData] = useState({
@@ -364,7 +364,7 @@ export default function Donate() {
                   {/* Payment Method */}
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-4">Payment Method</label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <label className={`flex items-center space-x-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
                         formData.paymentMethod === 'cash' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-primary-300'
                       }`}>
@@ -392,6 +392,20 @@ export default function Donate() {
                         />
                         <FaMobileAlt className="text-xl text-gray-700" />
                         <span className="font-medium">Zelle</span>
+                      </label>
+                      <label className={`flex items-center space-x-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                        formData.paymentMethod === 'check' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-primary-300'
+                      }`}>
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="check"
+                          checked={formData.paymentMethod === 'check'}
+                          onChange={handleChange}
+                          className="text-primary-600"
+                        />
+                        <FaFileCheck className="text-xl text-gray-700" />
+                        <span className="font-medium">Check</span>
                       </label>
                     </div>
                     
