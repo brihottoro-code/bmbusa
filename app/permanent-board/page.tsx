@@ -176,8 +176,7 @@ export default function PermanentBoard() {
                       <tr>
                         <th className="px-4 py-3 text-center font-semibold w-12">No.</th>
                         <th className="px-4 py-3 text-left font-semibold">Designation</th>
-                        <th className="px-4 py-3 text-left font-semibold">Name (English)</th>
-                        <th className="px-4 py-3 text-left font-semibold">Cell Phone</th>
+                        <th className="px-4 py-3 text-left font-semibold">Name</th>
                         <th className="px-4 py-3 text-left font-semibold">Current City, State</th>
                         <th className="px-4 py-3 text-left font-semibold">Bangladesh (District)</th>
                       </tr>
@@ -195,15 +194,6 @@ export default function PermanentBoard() {
                           </td>
                           <td className="px-4 py-3 text-purple-600 font-medium">{member.designation}</td>
                           <td className="px-4 py-3 text-gray-900 font-semibold">{member.name}</td>
-                          <td className="px-4 py-3 text-gray-700">
-                            {member.phone && member.phone !== 'N/A' ? (
-                              <a href={`tel:${member.phone.replace(/\s/g, '').replace(/[()]/g, '').replace(/-/g, '')}`} className="text-blue-600 hover:text-blue-800 hover:underline">
-                                {member.phone}
-                              </a>
-                            ) : (
-                              <span className="text-gray-400">{member.phone || 'N/A'}</span>
-                            )}
-                          </td>
                           <td className="px-4 py-3 text-gray-700">{member.currentCityState || '-'}</td>
                           <td className="px-4 py-3 text-gray-700">{member.bangladeshDistrict || '-'}</td>
                         </tr>
@@ -243,7 +233,7 @@ export default function PermanentBoard() {
                             href={member.facebookUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="absolute top-2 right-2 w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary-600 hover:bg-primary-600 hover:text-white transition-all duration-200 shadow-md opacity-0 group-hover:opacity-100"
+                            className="absolute top-2 right-2 w-10 h-10 bg-white rounded-full flex items-center justify-center text-purple-600 hover:bg-purple-600 hover:text-white transition-all duration-200 shadow-md"
                             aria-label={`${member.name}'s Facebook`}
                           >
                             <FaFacebook />
@@ -253,9 +243,6 @@ export default function PermanentBoard() {
                       <div className="p-4">
                         <h3 className="text-lg font-bold text-gray-900 mb-1">{member.name}</h3>
                         <p className="text-sm text-purple-600 font-semibold">{member.designation}</p>
-                        {member.phone && member.phone !== 'N/A' && (
-                          <p className="text-xs text-gray-500 mt-2">{member.phone}</p>
-                        )}
                         {member.facebookUrl && (
                           <a
                             href={member.facebookUrl}

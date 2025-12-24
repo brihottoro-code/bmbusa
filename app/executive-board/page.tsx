@@ -205,7 +205,6 @@ export default function ExecutiveBoard() {
                         <th className="px-6 py-4 text-center font-semibold w-16">No.</th>
                         <th className="px-6 py-4 text-left font-semibold">Name</th>
                         <th className="px-6 py-4 text-left font-semibold">Designation</th>
-                        <th className="px-6 py-4 text-left font-semibold">Cell Phone</th>
                         <th className="px-6 py-4 text-center font-semibold">Facebook</th>
                       </tr>
                     </thead>
@@ -222,15 +221,6 @@ export default function ExecutiveBoard() {
                           </td>
                           <td className="px-6 py-4 text-gray-900 font-semibold">{member.name}</td>
                           <td className="px-6 py-4 text-primary-600">{member.designation}</td>
-                          <td className="px-6 py-4 text-gray-700">
-                            {member.phone && member.phone !== 'N/A' ? (
-                              <a href={`tel:${member.phone.replace(/\s/g, '').replace(/[()]/g, '').replace(/-/g, '')}`} className="text-blue-600 hover:text-blue-800 hover:underline">
-                                {member.phone}
-                              </a>
-                            ) : (
-                              <span className="text-gray-400">{member.phone || 'N/A'}</span>
-                            )}
-                          </td>
                           <td className="px-6 py-4 text-center">
                             {member.facebookUrl ? (
                               <a
@@ -283,7 +273,7 @@ export default function ExecutiveBoard() {
                             href={member.facebookUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="absolute top-2 right-2 w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary-600 hover:bg-primary-600 hover:text-white transition-all duration-200 shadow-md opacity-0 group-hover:opacity-100"
+                            className="absolute top-2 right-2 w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary-600 hover:bg-primary-600 hover:text-white transition-all duration-200 shadow-md"
                             aria-label={`${member.name}'s Facebook`}
                           >
                             <FaFacebook />
