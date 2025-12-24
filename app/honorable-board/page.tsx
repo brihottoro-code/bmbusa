@@ -7,6 +7,7 @@ interface BoardMember {
   id: string
   name: string
   designation: string
+  phone?: string
   photo: string
   facebookUrl?: string
 }
@@ -24,71 +25,161 @@ export default function HonorableBoard() {
   // Generate years from 2020 to 50 years in the future (2070)
   const years = Array.from({ length: 51 }, (_, i) => startYear + i)
 
-  // Sample data structure - in production, this would come from an API or database
-  // Add members for each year as needed (from 2020 onwards)
-  const boardData: YearData[] = [
+  // Honorable Board Members - Same for 2024-2026 session (2 years: 2024 and 2025)
+  const honorableMembers: BoardMember[] = [
     {
-      year: 2020,
-      members: [
-        {
-          id: '1',
-          name: 'Hon. Justice Mohammad Alam',
-          designation: 'Honorary Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '2',
-          name: 'Dr. Farida Yasmin',
-          designation: 'Honorary Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-      ],
+      id: '1',
+      name: 'Md. Hafizur Rahman',
+      designation: 'Chief Advisor',
+      phone: '+1 (646) 546-2250',
+      photo: '',
+      facebookUrl: undefined,
     },
     {
-      year: currentYear,
-      members: [
-        {
-          id: '1',
-          name: 'Hon. Justice Mohammad Alam',
-          designation: 'Honorary Chairman',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '2',
-          name: 'Dr. Farida Yasmin',
-          designation: 'Honorary Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '3',
-          name: 'Prof. Dr. Anwar Hossain',
-          designation: 'Honorary Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '4',
-          name: 'Business Leader Rokeya Begum',
-          designation: 'Honorary Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '5',
-          name: 'Social Worker Jamal Uddin',
-          designation: 'Honorary Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-      ],
+      id: '2',
+      name: 'Agriculturalist Maqbul Hossain Talukder',
+      designation: 'Advisor',
+      phone: 'N/A',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '3',
+      name: 'Roise Uddin',
+      designation: 'Advisor',
+      phone: '+1 (929) 312-7691',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '4',
+      name: 'Titu Khan',
+      designation: 'Advisor',
+      phone: '+1 (347) 301-2585',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '5',
+      name: 'Anwar Alam Bhuiya',
+      designation: 'Advisor',
+      phone: 'N/A',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '6',
+      name: 'Aktaruzzaman Happy',
+      designation: 'Advisor',
+      phone: '+1 (646) 236-9371',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '7',
+      name: 'Md. Nurul Islam',
+      designation: 'Advisor',
+      phone: '+1 (347) 720-5613',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '8',
+      name: 'Azahar Ali Khan',
+      designation: 'Advisor',
+      phone: '+1 (917) 494-5316',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '9',
+      name: 'Md. Himel',
+      designation: 'Advisor',
+      phone: '+1 (917) 412-7090',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '10',
+      name: 'Mahbubur Rahman (Manu)',
+      designation: 'Advisor',
+      phone: 'N/A',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '11',
+      name: 'Habibur Rahman (Harun)',
+      designation: 'Advisor',
+      phone: 'N/A',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '12',
+      name: 'Hedayetul Islam',
+      designation: 'Advisor',
+      phone: '+1 (646) 554-3632',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '13',
+      name: 'Md. Ashraf Ali',
+      designation: 'Advisor',
+      phone: 'N/A',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '14',
+      name: 'Abdul Mannaf Talukdar',
+      designation: 'Advisor',
+      phone: '+1 (347) 476-2302',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '15',
+      name: 'Md. Amirul Islam (Kamal)',
+      designation: 'Advisor',
+      phone: 'N/A',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '16',
+      name: 'Shek Al Hadi',
+      designation: 'Advisor',
+      phone: 'N/A',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '17',
+      name: 'Advocate Abu Taher (Hiro)',
+      designation: 'Advisor',
+      phone: '+1 (832) 978-2446',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '18',
+      name: 'Md. Shajahan Akondho',
+      designation: 'Advisor',
+      phone: 'N/A',
+      photo: '',
+      facebookUrl: undefined,
     },
   ]
 
-  const currentYearData = boardData.find(data => data.year === selectedYear) || { year: selectedYear, members: [] }
+  // Create board data for years 2024 and 2025 with the same members (2024-2026 session)
+  const boardData: YearData[] = [2024, 2025].map(year => ({
+    year,
+    members: honorableMembers,
+  }))
+
+  const currentYearData = boardData.find(data => data.year === selectedYear) || { year: selectedYear, members: selectedYear === 2024 || selectedYear === 2025 ? honorableMembers : [] }
 
   return (
     <div className="pt-20 min-h-screen">
@@ -153,22 +244,22 @@ export default function HonorableBoard() {
               <>
                 <div className="text-center mb-12">
                   <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                    Honorable Board Members {selectedYear}
+                    Honorable Board Members {selectedYear === 2024 || selectedYear === 2025 ? '2024-2026' : selectedYear}
                   </h2>
                   <p className="text-gray-600">
-                    Our distinguished honorable board members for {selectedYear}
+                    Our distinguished honorable board members {selectedYear === 2024 || selectedYear === 2025 ? 'for the 2024-2026 session (2 years)' : `for ${selectedYear}`}
                   </p>
                 </div>
 
                 {/* Table Format */}
                 <div className="mb-12 overflow-x-auto">
-                  <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+                  <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden text-sm">
                     <thead className="bg-yellow-600 text-white">
                       <tr>
-                        <th className="px-6 py-4 text-center font-semibold w-16">No.</th>
-                        <th className="px-6 py-4 text-left font-semibold">Name</th>
-                        <th className="px-6 py-4 text-left font-semibold">Designation</th>
-                        <th className="px-6 py-4 text-center font-semibold">Facebook</th>
+                        <th className="px-4 py-3 text-center font-semibold w-12">No.</th>
+                        <th className="px-4 py-3 text-left font-semibold">Designation</th>
+                        <th className="px-4 py-3 text-left font-semibold">Name (English)</th>
+                        <th className="px-4 py-3 text-left font-semibold">Cell Phone</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -177,26 +268,20 @@ export default function HonorableBoard() {
                           key={member.id}
                           className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
                         >
-                          <td className="px-6 py-4 text-center">
+                          <td className="px-4 py-3 text-center">
                             <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-yellow-100 text-yellow-700 font-bold text-sm">
                               {index + 1}
                             </span>
                           </td>
-                          <td className="px-6 py-4 text-gray-900 font-semibold">{member.name}</td>
-                          <td className="px-6 py-4 text-yellow-600">{member.designation}</td>
-                          <td className="px-6 py-4 text-center">
-                            {member.facebookUrl ? (
-                              <a
-                                href={member.facebookUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-yellow-100 text-yellow-600 hover:bg-yellow-600 hover:text-white transition-all duration-200"
-                                aria-label={`${member.name}'s Facebook`}
-                              >
-                                <FaFacebook />
+                          <td className="px-4 py-3 text-yellow-600 font-medium">{member.designation}</td>
+                          <td className="px-4 py-3 text-gray-900 font-semibold">{member.name}</td>
+                          <td className="px-4 py-3 text-gray-700">
+                            {member.phone && member.phone !== 'N/A' ? (
+                              <a href={`tel:${member.phone.replace(/\s/g, '').replace(/[()]/g, '').replace(/-/g, '')}`} className="text-blue-600 hover:text-blue-800 hover:underline">
+                                {member.phone}
                               </a>
                             ) : (
-                              <span className="text-gray-400">-</span>
+                              <span className="text-gray-400">{member.phone || 'N/A'}</span>
                             )}
                           </td>
                         </tr>
@@ -246,6 +331,9 @@ export default function HonorableBoard() {
                       <div className="p-4">
                         <h3 className="text-lg font-bold text-gray-900 mb-1">{member.name}</h3>
                         <p className="text-sm text-yellow-600 font-semibold">{member.designation}</p>
+                        {member.phone && member.phone !== 'N/A' && (
+                          <p className="text-xs text-gray-500 mt-2">{member.phone}</p>
+                        )}
                         {member.facebookUrl && (
                           <a
                             href={member.facebookUrl}

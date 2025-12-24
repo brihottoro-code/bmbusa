@@ -7,6 +7,7 @@ interface BoardMember {
   id: string
   name: string
   designation: string
+  phone?: string
   photo: string
   facebookUrl?: string
 }
@@ -24,101 +25,102 @@ export default function ExecutiveBoard() {
   // Generate years from 2020 to 50 years in the future (2070)
   const years = Array.from({ length: 51 }, (_, i) => startYear + i)
 
-  // Sample data structure - in production, this would come from an API or database
-  // Add members for each year as needed (from 2020 onwards)
+  // Executive Board Members Data (2024-2026 Session - 2 years)
   const boardData: YearData[] = [
     {
-      year: 2020,
+      year: 2024,
       members: [
-        {
-          id: '1',
-          name: 'Mohammad Rahman',
-          designation: 'President',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '2',
-          name: 'Abdul Karim',
-          designation: 'Vice President',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '3',
-          name: 'Fatema Begum',
-          designation: 'Secretary',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '4',
-          name: 'Hasan Ali',
-          designation: 'Treasurer',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
+        { id: '1', name: 'M A Bari (Badal)', designation: 'President', phone: '+1 (347) 339-7721', photo: '', facebookUrl: undefined },
+        { id: '2', name: 'Mashiur Rahman (Shapon)', designation: 'Senior Vice President', phone: '+1 (917) 500-5286', photo: '', facebookUrl: undefined },
+        { id: '3', name: 'Md. Azizul Haque', designation: 'Vice President', phone: '+1 (929) 283-2847', photo: '', facebookUrl: undefined },
+        { id: '4', name: 'Md. Alauddin', designation: 'Vice President', phone: '+1 (347) 299-2519', photo: '', facebookUrl: undefined },
+        { id: '5', name: 'Kurshed Alam (Biplob)', designation: 'Vice President', phone: '+1 (347) 299-2519', photo: '', facebookUrl: undefined },
+        { id: '6', name: 'Md. Shahnewaz Zaman (Santo)', designation: 'General Secretary', phone: '+1 (917) 561-6554', photo: '', facebookUrl: undefined },
+        { id: '7', name: 'Shams Ahmed (Shubro)', designation: 'Joint General Secretary', phone: '+1 (347) 759-4120', photo: '', facebookUrl: undefined },
+        { id: '8', name: 'Sayed Wahid Ullah', designation: 'Associate General Secretary', phone: '+1 (347) 761-6188', photo: '', facebookUrl: undefined },
+        { id: '9', name: 'Md. Muzzammel Haque', designation: 'Associate General Secretary', phone: '+1 (646) 512-8067', photo: '', facebookUrl: undefined },
+        { id: '10', name: 'Nilutpal Sarker (Drubo)', designation: 'Associate General Secretary', phone: '+1 (917) 774-5871', photo: '', facebookUrl: undefined },
+        { id: '11', name: 'Nur Faisal (Moni)', designation: 'Treasurer', phone: '+1 (646) 824-0777', photo: '', facebookUrl: undefined },
+        { id: '12', name: 'Md. Masudur Rahman (Shahin)', designation: 'Treasurer', phone: '+1 (347) 261-0562', photo: '', facebookUrl: undefined },
+        { id: '13', name: 'Mizanur Rahman (Murad)', designation: 'Organizing Secretary', phone: '+1 (929) 365-4633', photo: '', facebookUrl: undefined },
+        { id: '14', name: 'Pallob Sarker', designation: 'Organizing Secretary', phone: '+1 (609) 553-8953', photo: '', facebookUrl: undefined },
+        { id: '15', name: 'Md. Shamim Hossain', designation: 'Publicity Secretary', phone: '+1 (929) 331-5906', photo: '', facebookUrl: undefined },
+        { id: '16', name: 'Md. Abdul Halim', designation: 'Social Welfare Secretary', phone: '+1 (718) 673-7882', photo: '', facebookUrl: undefined },
+        { id: '17', name: 'Dr. Fatim', designation: 'Education Secretary', phone: '+1 (332) 260-8749', photo: '', facebookUrl: undefined },
+        { id: '18', name: 'Mohibur Rahman (Jewel)', designation: 'Religion Secretary', phone: '+1 (646) 944-6988', photo: '', facebookUrl: undefined },
+        { id: '19', name: 'Akram Hossain', designation: 'Office Secretary', phone: '+1 (206) 571-8676', photo: '', facebookUrl: undefined },
+        { id: '20', name: 'M A Mouli', designation: 'Female Secretary', phone: '+1 (347) 851-0458', photo: '', facebookUrl: undefined },
+        { id: '21', name: 'Harun Al Momin (Sumon)', designation: 'Information & Technology Secretary', phone: '+1 (631) 245-2819', photo: '', facebookUrl: undefined },
+        { id: '22', name: 'Fukrul Islam (Ananto)', designation: 'Literary & Cultural Secretary', phone: '+1 (347) 247-7341', photo: '', facebookUrl: undefined },
+        { id: '23', name: 'Md. Rabiul Hasan', designation: 'Literary & Cultural Secretary', phone: '+1 (646) 321-0810', photo: '', facebookUrl: undefined },
+        { id: '24', name: 'Ibrahim Rakib (Babu)', designation: 'Sports Secretary', phone: '+1 (929) 589-6511', photo: '', facebookUrl: undefined },
+        { id: '25', name: 'Mubashir Ahmed (Rupon)', designation: 'Associate Sports Secretary', phone: '+1 (347) 280-8506', photo: '', facebookUrl: undefined },
+        { id: '26', name: 'Md. Jahangir Alam', designation: 'Entertainment Secretary', phone: '+1 (347) 479-9816', photo: '', facebookUrl: undefined },
+        { id: '27', name: 'Mahbubul Alam (Kosru)', designation: 'Honorable Member', phone: '+1 (929) 235-2368', photo: '', facebookUrl: undefined },
+        { id: '28', name: 'Md. Ruhul Amin (Jewel)', designation: 'Member', phone: '+1 (347) 984-7247', photo: '', facebookUrl: undefined },
+        { id: '29', name: 'Md. Mahbubur Rahman', designation: 'Member', phone: '+1 (917) 403-1595', photo: '', facebookUrl: undefined },
+        { id: '30', name: 'Md. Hafizur Rahman (Chandan)', designation: 'Member', phone: 'N/A', photo: '', facebookUrl: undefined },
+        { id: '31', name: 'Nirmol De', designation: 'Member', phone: '+1 (347) 744-4245', photo: '', facebookUrl: undefined },
+        { id: '32', name: 'Kamrul Hasan (Mamun)', designation: 'Member', phone: '+1 (718) 219-3686', photo: '', facebookUrl: undefined },
+        { id: '33', name: 'Mohammad Samsul Alam', designation: 'Member', phone: '+1 (929) 386-3856', photo: '', facebookUrl: undefined },
+        { id: '34', name: 'Kazi Enam', designation: 'Member', phone: '+1 (410) 845-6493', photo: '', facebookUrl: undefined },
+        { id: '35', name: 'K H Mehdi Hasan (Nahid)', designation: 'Member', phone: '+1 (347) 257-7070', photo: '', facebookUrl: undefined },
+        { id: '36', name: 'Faisal Majumder', designation: 'Member', phone: '+1 (929) 422-3257', photo: '', facebookUrl: undefined },
+        { id: '37', name: 'Josim Mia', designation: 'Member', phone: '+1 (347) 653-4802', photo: '', facebookUrl: undefined },
+        { id: '38', name: 'Mohammad Anisur Rahman (Shuhag)', designation: 'Member', phone: '+1 (631) 408-2559', photo: '', facebookUrl: undefined },
+        { id: '39', name: 'Anwar Hossain (Tofa)', designation: 'Member', phone: '+1 (646) 750-7317', photo: '', facebookUrl: undefined },
+        { id: '40', name: 'Md. Mihaduzzaman Khan (Mizan)', designation: 'Member', phone: '+1 (631) 429-1431', photo: '', facebookUrl: undefined },
+        { id: '41', name: 'ATM Numan', designation: 'Member', phone: '+1 (347) 261-5802', photo: '', facebookUrl: undefined },
+        { id: '42', name: 'Md. Faisal Azad', designation: 'Member', phone: '+1 (347) 301-5810', photo: '', facebookUrl: undefined },
+        { id: '43', name: 'Joyonto De', designation: 'Member', phone: '+1 (646) 229-1173', photo: '', facebookUrl: undefined },
       ],
     },
     {
-      year: currentYear,
+      year: 2025,
       members: [
-        {
-          id: '1',
-          name: 'Ahmed Hossain',
-          designation: 'President',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '2',
-          name: 'Nurul Islam',
-          designation: 'Vice President',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '3',
-          name: 'Rashida Khatun',
-          designation: 'General Secretary',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '4',
-          name: 'Kamal Uddin',
-          designation: 'Treasurer',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '5',
-          name: 'Shamima Akter',
-          designation: 'Joint Secretary',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '6',
-          name: 'Mizanur Rahman',
-          designation: 'Organizing Secretary',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '7',
-          name: 'Salma Begum',
-          designation: 'Cultural Secretary',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '8',
-          name: 'Rafiqul Islam',
-          designation: 'Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
+        { id: '1', name: 'M A Bari (Badal)', designation: 'President', phone: '+1 (347) 339-7721', photo: '', facebookUrl: undefined },
+        { id: '2', name: 'Mashiur Rahman (Shapon)', designation: 'Senior Vice President', phone: '+1 (917) 500-5286', photo: '', facebookUrl: undefined },
+        { id: '3', name: 'Md. Azizul Haque', designation: 'Vice President', phone: '+1 (929) 283-2847', photo: '', facebookUrl: undefined },
+        { id: '4', name: 'Md. Alauddin', designation: 'Vice President', phone: '+1 (347) 299-2519', photo: '', facebookUrl: undefined },
+        { id: '5', name: 'Kurshed Alam (Biplob)', designation: 'Vice President', phone: '+1 (347) 299-2519', photo: '', facebookUrl: undefined },
+        { id: '6', name: 'Md. Shahnewaz Zaman (Santo)', designation: 'General Secretary', phone: '+1 (917) 561-6554', photo: '', facebookUrl: undefined },
+        { id: '7', name: 'Shams Ahmed (Shubro)', designation: 'Joint General Secretary', phone: '+1 (347) 759-4120', photo: '', facebookUrl: undefined },
+        { id: '8', name: 'Sayed Wahid Ullah', designation: 'Associate General Secretary', phone: '+1 (347) 761-6188', photo: '', facebookUrl: undefined },
+        { id: '9', name: 'Md. Muzzammel Haque', designation: 'Associate General Secretary', phone: '+1 (646) 512-8067', photo: '', facebookUrl: undefined },
+        { id: '10', name: 'Nilutpal Sarker (Drubo)', designation: 'Associate General Secretary', phone: '+1 (917) 774-5871', photo: '', facebookUrl: undefined },
+        { id: '11', name: 'Nur Faisal (Moni)', designation: 'Treasurer', phone: '+1 (646) 824-0777', photo: '', facebookUrl: undefined },
+        { id: '12', name: 'Md. Masudur Rahman (Shahin)', designation: 'Treasurer', phone: '+1 (347) 261-0562', photo: '', facebookUrl: undefined },
+        { id: '13', name: 'Mizanur Rahman (Murad)', designation: 'Organizing Secretary', phone: '+1 (929) 365-4633', photo: '', facebookUrl: undefined },
+        { id: '14', name: 'Pallob Sarker', designation: 'Organizing Secretary', phone: '+1 (609) 553-8953', photo: '', facebookUrl: undefined },
+        { id: '15', name: 'Md. Shamim Hossain', designation: 'Publicity Secretary', phone: '+1 (929) 331-5906', photo: '', facebookUrl: undefined },
+        { id: '16', name: 'Md. Abdul Halim', designation: 'Social Welfare Secretary', phone: '+1 (718) 673-7882', photo: '', facebookUrl: undefined },
+        { id: '17', name: 'Dr. Fatim', designation: 'Education Secretary', phone: '+1 (332) 260-8749', photo: '', facebookUrl: undefined },
+        { id: '18', name: 'Mohibur Rahman (Jewel)', designation: 'Religion Secretary', phone: '+1 (646) 944-6988', photo: '', facebookUrl: undefined },
+        { id: '19', name: 'Akram Hossain', designation: 'Office Secretary', phone: '+1 (206) 571-8676', photo: '', facebookUrl: undefined },
+        { id: '20', name: 'M A Mouli', designation: 'Female Secretary', phone: '+1 (347) 851-0458', photo: '', facebookUrl: undefined },
+        { id: '21', name: 'Harun Al Momin (Sumon)', designation: 'Information & Technology Secretary', phone: '+1 (631) 245-2819', photo: '', facebookUrl: undefined },
+        { id: '22', name: 'Fukrul Islam (Ananto)', designation: 'Literary & Cultural Secretary', phone: '+1 (347) 247-7341', photo: '', facebookUrl: undefined },
+        { id: '23', name: 'Md. Rabiul Hasan', designation: 'Literary & Cultural Secretary', phone: '+1 (646) 321-0810', photo: '', facebookUrl: undefined },
+        { id: '24', name: 'Ibrahim Rakib (Babu)', designation: 'Sports Secretary', phone: '+1 (929) 589-6511', photo: '', facebookUrl: undefined },
+        { id: '25', name: 'Mubashir Ahmed (Rupon)', designation: 'Associate Sports Secretary', phone: '+1 (347) 280-8506', photo: '', facebookUrl: undefined },
+        { id: '26', name: 'Md. Jahangir Alam', designation: 'Entertainment Secretary', phone: '+1 (347) 479-9816', photo: '', facebookUrl: undefined },
+        { id: '27', name: 'Mahbubul Alam (Kosru)', designation: 'Honorable Member', phone: '+1 (929) 235-2368', photo: '', facebookUrl: undefined },
+        { id: '28', name: 'Md. Ruhul Amin (Jewel)', designation: 'Member', phone: '+1 (347) 984-7247', photo: '', facebookUrl: undefined },
+        { id: '29', name: 'Md. Mahbubur Rahman', designation: 'Member', phone: '+1 (917) 403-1595', photo: '', facebookUrl: undefined },
+        { id: '30', name: 'Md. Hafizur Rahman (Chandan)', designation: 'Member', phone: 'N/A', photo: '', facebookUrl: undefined },
+        { id: '31', name: 'Nirmol De', designation: 'Member', phone: '+1 (347) 744-4245', photo: '', facebookUrl: undefined },
+        { id: '32', name: 'Kamrul Hasan (Mamun)', designation: 'Member', phone: '+1 (718) 219-3686', photo: '', facebookUrl: undefined },
+        { id: '33', name: 'Mohammad Samsul Alam', designation: 'Member', phone: '+1 (929) 386-3856', photo: '', facebookUrl: undefined },
+        { id: '34', name: 'Kazi Enam', designation: 'Member', phone: '+1 (410) 845-6493', photo: '', facebookUrl: undefined },
+        { id: '35', name: 'K H Mehdi Hasan (Nahid)', designation: 'Member', phone: '+1 (347) 257-7070', photo: '', facebookUrl: undefined },
+        { id: '36', name: 'Faisal Majumder', designation: 'Member', phone: '+1 (929) 422-3257', photo: '', facebookUrl: undefined },
+        { id: '37', name: 'Josim Mia', designation: 'Member', phone: '+1 (347) 653-4802', photo: '', facebookUrl: undefined },
+        { id: '38', name: 'Mohammad Anisur Rahman (Shuhag)', designation: 'Member', phone: '+1 (631) 408-2559', photo: '', facebookUrl: undefined },
+        { id: '39', name: 'Anwar Hossain (Tofa)', designation: 'Member', phone: '+1 (646) 750-7317', photo: '', facebookUrl: undefined },
+        { id: '40', name: 'Md. Mihaduzzaman Khan (Mizan)', designation: 'Member', phone: '+1 (631) 429-1431', photo: '', facebookUrl: undefined },
+        { id: '41', name: 'ATM Numan', designation: 'Member', phone: '+1 (347) 261-5802', photo: '', facebookUrl: undefined },
+        { id: '42', name: 'Md. Faisal Azad', designation: 'Member', phone: '+1 (347) 301-5810', photo: '', facebookUrl: undefined },
+        { id: '43', name: 'Joyonto De', designation: 'Member', phone: '+1 (646) 229-1173', photo: '', facebookUrl: undefined },
       ],
     },
   ]
@@ -188,10 +190,10 @@ export default function ExecutiveBoard() {
               <>
                 <div className="text-center mb-12">
                   <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                    Executive Board Members {selectedYear}
+                    Executive Board Members {selectedYear === 2024 || selectedYear === 2025 ? '2024-2026' : selectedYear}
                   </h2>
                   <p className="text-gray-600">
-                    Our dedicated leadership team for {selectedYear}
+                    Our dedicated leadership team {selectedYear === 2024 || selectedYear === 2025 ? 'for the 2024-2026 session (2 years)' : `for ${selectedYear}`}
                   </p>
                 </div>
 
@@ -203,6 +205,7 @@ export default function ExecutiveBoard() {
                         <th className="px-6 py-4 text-center font-semibold w-16">No.</th>
                         <th className="px-6 py-4 text-left font-semibold">Name</th>
                         <th className="px-6 py-4 text-left font-semibold">Designation</th>
+                        <th className="px-6 py-4 text-left font-semibold">Cell Phone</th>
                         <th className="px-6 py-4 text-center font-semibold">Facebook</th>
                       </tr>
                     </thead>
@@ -219,6 +222,15 @@ export default function ExecutiveBoard() {
                           </td>
                           <td className="px-6 py-4 text-gray-900 font-semibold">{member.name}</td>
                           <td className="px-6 py-4 text-primary-600">{member.designation}</td>
+                          <td className="px-6 py-4 text-gray-700">
+                            {member.phone && member.phone !== 'N/A' ? (
+                              <a href={`tel:${member.phone.replace(/\s/g, '').replace(/[()]/g, '').replace(/-/g, '')}`} className="text-blue-600 hover:text-blue-800 hover:underline">
+                                {member.phone}
+                              </a>
+                            ) : (
+                              <span className="text-gray-400">{member.phone || 'N/A'}</span>
+                            )}
+                          </td>
                           <td className="px-6 py-4 text-center">
                             {member.facebookUrl ? (
                               <a

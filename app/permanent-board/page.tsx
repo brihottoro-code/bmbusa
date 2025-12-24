@@ -7,6 +7,9 @@ interface BoardMember {
   id: string
   name: string
   designation: string
+  phone?: string
+  currentCityState?: string
+  bangladeshDistrict?: string
   photo: string
   facebookUrl?: string
 }
@@ -24,85 +27,77 @@ export default function PermanentBoard() {
   // Generate years from 2020 to 50 years in the future (2070)
   const years = Array.from({ length: 51 }, (_, i) => startYear + i)
 
-  // Sample data structure - in production, this would come from an API or database
-  // Add members for each year as needed (from 2020 onwards)
-  const boardData: YearData[] = [
+  // Permanent Board Members - Same for all years (2020-2025)
+  const permanentMembers: BoardMember[] = [
     {
-      year: 2020,
-      members: [
-        {
-          id: '1',
-          name: 'Dr. Mohammad Ali',
-          designation: 'Chairman',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '2',
-          name: 'Prof. Khaleda Begum',
-          designation: 'Vice Chairman',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '3',
-          name: 'Eng. Shahidul Islam',
-          designation: 'Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-      ],
+      id: '1',
+      name: 'Md Nasir Uddin',
+      designation: 'Director',
+      phone: '+1 (917) 957-8941',
+      currentCityState: 'Queens, NY',
+      bangladeshDistrict: 'Mymensingh',
+      photo: '',
+      facebookUrl: undefined,
     },
     {
-      year: currentYear,
-      members: [
-        {
-          id: '1',
-          name: 'Dr. Mohammad Ali',
-          designation: 'Chairman',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '2',
-          name: 'Prof. Khaleda Begum',
-          designation: 'Vice Chairman',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '3',
-          name: 'Eng. Shahidul Islam',
-          designation: 'Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '4',
-          name: 'Advocate Rashed Khan',
-          designation: 'Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '5',
-          name: 'Dr. Nasima Sultana',
-          designation: 'Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-        {
-          id: '6',
-          name: 'Businessman Abdul Mannan',
-          designation: 'Member',
-          photo: '',
-          facebookUrl: 'https://www.facebook.com',
-        },
-      ],
+      id: '2',
+      name: 'Mahabub Kabir',
+      designation: 'Director',
+      phone: '+1 (646) 266-1149',
+      currentCityState: 'Queens, NY',
+      bangladeshDistrict: 'Mymensingh',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '3',
+      name: 'Md. Mahbubur Rahman Liton',
+      designation: 'Director',
+      phone: '+1 (917) 400-4882',
+      currentCityState: 'Queens, NY',
+      bangladeshDistrict: 'Mymensingh',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '4',
+      name: 'AKM Shafiqul Haque',
+      designation: 'Director',
+      phone: '+1 (646) 244-3365',
+      currentCityState: 'Queens, NY',
+      bangladeshDistrict: 'Mymensingh',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '5',
+      name: 'Md. Shah Alam',
+      designation: 'Director',
+      phone: '+1 (646) 206-9967',
+      currentCityState: 'Queens, NY',
+      bangladeshDistrict: 'Mymensingh',
+      photo: '',
+      facebookUrl: undefined,
+    },
+    {
+      id: '6',
+      name: 'Md Samsul Alam (Khokon)',
+      designation: 'Director',
+      phone: '+1 (631) 676-1367',
+      currentCityState: '',
+      bangladeshDistrict: '',
+      photo: '',
+      facebookUrl: undefined,
     },
   ]
 
-  const currentYearData = boardData.find(data => data.year === selectedYear) || { year: selectedYear, members: [] }
+  // Create board data for years 2020-2025 with the same members
+  const boardData: YearData[] = [2020, 2021, 2022, 2023, 2024, 2025].map(year => ({
+    year,
+    members: permanentMembers,
+  }))
+
+  const currentYearData = boardData.find(data => data.year === selectedYear) || { year: selectedYear, members: selectedYear >= 2020 && selectedYear <= 2025 ? permanentMembers : [] }
 
   return (
     <div className="pt-20 min-h-screen">
@@ -176,13 +171,15 @@ export default function PermanentBoard() {
 
                 {/* Table Format */}
                 <div className="mb-12 overflow-x-auto">
-                  <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+                  <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden text-sm">
                     <thead className="bg-purple-600 text-white">
                       <tr>
-                        <th className="px-6 py-4 text-center font-semibold w-16">No.</th>
-                        <th className="px-6 py-4 text-left font-semibold">Name</th>
-                        <th className="px-6 py-4 text-left font-semibold">Designation</th>
-                        <th className="px-6 py-4 text-center font-semibold">Facebook</th>
+                        <th className="px-4 py-3 text-center font-semibold w-12">No.</th>
+                        <th className="px-4 py-3 text-left font-semibold">Designation</th>
+                        <th className="px-4 py-3 text-left font-semibold">Name (English)</th>
+                        <th className="px-4 py-3 text-left font-semibold">Cell Phone</th>
+                        <th className="px-4 py-3 text-left font-semibold">Current City, State</th>
+                        <th className="px-4 py-3 text-left font-semibold">Bangladesh (District)</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -191,28 +188,24 @@ export default function PermanentBoard() {
                           key={member.id}
                           className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
                         >
-                          <td className="px-6 py-4 text-center">
+                          <td className="px-4 py-3 text-center">
                             <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-bold text-sm">
                               {index + 1}
                             </span>
                           </td>
-                          <td className="px-6 py-4 text-gray-900 font-semibold">{member.name}</td>
-                          <td className="px-6 py-4 text-purple-600">{member.designation}</td>
-                          <td className="px-6 py-4 text-center">
-                            {member.facebookUrl ? (
-                              <a
-                                href={member.facebookUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-purple-100 text-purple-600 hover:bg-purple-600 hover:text-white transition-all duration-200"
-                                aria-label={`${member.name}'s Facebook`}
-                              >
-                                <FaFacebook />
+                          <td className="px-4 py-3 text-purple-600 font-medium">{member.designation}</td>
+                          <td className="px-4 py-3 text-gray-900 font-semibold">{member.name}</td>
+                          <td className="px-4 py-3 text-gray-700">
+                            {member.phone && member.phone !== 'N/A' ? (
+                              <a href={`tel:${member.phone.replace(/\s/g, '').replace(/[()]/g, '').replace(/-/g, '')}`} className="text-blue-600 hover:text-blue-800 hover:underline">
+                                {member.phone}
                               </a>
                             ) : (
-                              <span className="text-gray-400">-</span>
+                              <span className="text-gray-400">{member.phone || 'N/A'}</span>
                             )}
                           </td>
+                          <td className="px-4 py-3 text-gray-700">{member.currentCityState || '-'}</td>
+                          <td className="px-4 py-3 text-gray-700">{member.bangladeshDistrict || '-'}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -260,6 +253,9 @@ export default function PermanentBoard() {
                       <div className="p-4">
                         <h3 className="text-lg font-bold text-gray-900 mb-1">{member.name}</h3>
                         <p className="text-sm text-purple-600 font-semibold">{member.designation}</p>
+                        {member.phone && member.phone !== 'N/A' && (
+                          <p className="text-xs text-gray-500 mt-2">{member.phone}</p>
+                        )}
                         {member.facebookUrl && (
                           <a
                             href={member.facebookUrl}
